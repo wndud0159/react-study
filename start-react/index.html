@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <title>Start react</title>
+    </head>
+    <body>
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <div id="root"></div>
+        <script>
+            // const rootElement = document.getElementById("root")
+
+            // const element = document.createElement("h1")
+            // element.textContent = "Hello, world!"
+            // rootElement.appendChild(element)
+
+            // const element = React.createElement("h1", {className: "title", children: ["Hello world!", "It's me!", "Good"]}, "Hello")
+            // ReactDOM.render(element, rootElement)
+        </script>
+        <script type="text/babel">
+            const rootElement = document.getElementById("root")
+            const text = "Hello world!"
+            const titleClassName = "title"
+            const props = {
+                className: titleClassName, 
+                children: text
+            }
+            // 스프레드연산
+            const customH1 = <h1 {...props}/>
+            const element = customH1
+            // const element = <h1 className={titleClassName} children={text}></h1>
+            ReactDOM.render(element, rootElement)
+        </script>        
+    </body>
+</html>
