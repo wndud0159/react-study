@@ -27,9 +27,33 @@
                 children: text
             }
             // 스프레드연산
-            const customH1 = <h1 {...props}/>
-            const element = customH1
+            // const customH1 = <h1 {...props}/>
+            // const element = customH1
+
             // const element = <h1 className={titleClassName} children={text}></h1>
+
+            const Paint = ({ title, description, children}) => {
+                return (
+                    <>
+                        <h1>{title}</h1>
+                        <h3>{description}</h3>
+                        {children}
+                    </>
+                )
+            }
+
+            const Good = () => <h3>Good</h3>
+
+            const element = (
+                <>
+                    <Paint title="Good" description="good"> 
+                        {Paint({title: "Bad", description: "bad", children: "hi"})}
+                        <Good/>
+                        <Good/>
+                        <Good/>
+                    </Paint>
+                </>
+            )
             ReactDOM.render(element, rootElement)
         </script>        
     </body>
