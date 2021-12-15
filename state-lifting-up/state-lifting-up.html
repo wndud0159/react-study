@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head><title>state-lifting-up</title></head>
+    <body>
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <div id="root"></div>
+        <script type="text/babel">
+             const rootElement = document.getElementById('root')
+
+             const Id = ({handleIdChange}) => {
+                 
+                 return (
+                     <>
+                        <label>ID: </label>
+                        <input onChange={handleIdChange} type="text"/>
+                     </>
+                 )
+             }
+
+             const Password = ({handlePasswordChange}) => {
+                 
+                 return (
+                     <>
+                        <label>PASSWORD:</label>
+                        <input onChange={handlePasswordChange} type="password"/>
+                     </>
+                 )
+             }
+             const App = () => {
+                const [id, setId] = React.useState("")
+
+                 const handleIdChange = (event) => {
+                     setId(event.target.value)
+                     console.log(`Id length: ${id.length > 0}`)
+                 }
+
+                 const [password, setPassword] = React.useState("")
+
+                 const handlePasswordChange = (event) => {
+                     setPassword(event.target.value)
+                     console.log(`Password length: ${password.length > 0}`)
+                 }
+
+                 const handleButtonClick = () => {
+                     alert(`id: ${id},\npassword: ${password}`)
+                 }
+
+                 return (
+                     <>
+                        <Id handleIdChange={handleIdChange}/>
+                        <Password handlePasswordChange={handlePasswordChange}/>
+                        <button onClick={handleButtonClick} disabled={id.length === 0 || password.length === 0}>LOGIN</button>
+                     </>
+                 )
+             }
+
+             ReactDOM.render(<App/>, rootElement)
+        </script>
+    </body>
+</html>

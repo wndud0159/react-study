@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+    <head>
+        <title>key-re-render</title>
+    </head>
+    <body>
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <div id="root"></div>
+            
+        <script type="text/babel">
+            const rootElement = document.getElementById('root')
+            const todos = [
+                [
+                    {id: 1, value: 'wash dishes'},
+                    {id: 2, value: 'clean the bed'},
+                    {id: 3, value: 'Running'},
+                    {id: 4, value: 'Learning'},
+                ],
+                [
+                    {id: 4, value: 'Learning'},
+                    {id: 1, value: 'wash dishes'},
+                    {id: 2, value: 'clean the bed'},
+                    {id: 3, value: 'Running'},
+                ],
+                [
+                    {id: 3, value: 'Running'},
+                    {id: 4, value: 'Learning'},
+                    {id: 1, value: 'wash dishes'},
+                    {id: 2, value: 'clean the bed'},
+                ],
+                [
+                    {id: 2, value: 'clean the bed'},
+                    {id: 3, value: 'Running'},
+                    {id: 4, value: 'Learning'},
+                    {id: 1, value: 'wash dishes'},
+                ],
+            ]
+            const App = () => {
+                const [items, setItems] = React.useState(todos[0])
+
+                React.useEffect(() => {
+                    console.log('useEffect')
+                    const interval = setInterval(() => {
+                        const random = Math.floor(Math.random() * 3)
+                        setItems(todos[random])
+                    }, 1000)
+
+                    return () => {
+                        console.log('useEffect return')
+                        clearInterval(interval)
+                    }
+                    console.log('useEffect end')
+                }, [items])
+
+                const handleDoneClick = (todo) => {
+                    setItems((items) => items.filter((item) => item !== todo))
+                }
+
+                const handleRestoreClick = () => {
+                    setItems((items) => [...items, todos.find((item) => !items.includes(item))])
+                }
+
+                return (
+                    <>
+                        {
+                            items.map((todo) => (
+                                <div key={todo.id}>
+                                    <button onClick={() => handleDoneClick(todo)}>{todo.value}</button>
+                                </div>
+                            ))
+                        }
+                            <br/>
+                            <br/>
+                            <button onClick={handleRestoreClick}>Restore</button>
+                    </>
+                )
+            }
+
+            ReactDOM.render(<App/>, rootElement)
+        </script>
+    </body>
+</html>
