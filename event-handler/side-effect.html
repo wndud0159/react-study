@@ -1,54 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <title>
-            side-effect
-        </title>
-    </head>
-    <body>
-        <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-        
-        <div id="root"></div>
+  <head>
+    <title>side-effect</title>
+  </head>
+  <body>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-        <script type="text/babel">
-            const rootElement = document.getElementById('root')
+    <div id="root"></div>
 
-            const state = {
-                keyword: "",
-                typing: false,
-                result: "",
-            }
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
 
-            const App = () => {
-                function handleChange(event) {
-                    setState({keyword: event.target.value})
-                }
+      const state = {
+        keyword: "",
+        typing: false,
+        result: "",
+      };
 
-                function handleClick() {
-                    setState({
-                        typing: true,
-                        result: `We find results of ${state.keyword}`
-                    })
-                }
+      const App = () => {
+        function handleChange(event) {
+          setState({ keyword: event.target.value });
+        }
 
-                return (
-                    <>
-                        <input onChange={handleChange} type="text"/>
-                        <button onClick={handleClick}>search</button>
-                        <p>{!state.typing ? `Looking for....${state.keyword}` : state.result}</p>
-                    </>
-                )
-            }
-            function setState(newState) {
-                Object.assign(state, newState)
-                render()
-            }
-            function render() {
-                ReactDOM.render(<App/>, rootElement)
-            }
-            ReactDOM.render(<App/>, rootElement)
-        </script>
-    </body>
+        function handleClick() {
+          setState({
+            typing: true,
+            result: `We find results of ${state.keyword}`,
+          });
+        }
+
+        return (
+          <>
+            <input onChange={handleChange} type="text" />
+            <button onClick={handleClick}>search</button>
+            <p>{!state.typing ? `Looking for....${state.keyword}` : state.result}</p>
+          </>
+        );
+      };
+      function setState(newState) {
+        Object.assign(state, newState);
+        render();
+      }
+      function render() {
+        ReactDOM.render(<App />, rootElement);
+      }
+      ReactDOM.render(<App />, rootElement);
+    </script>
+  </body>
 </html>
