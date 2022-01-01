@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import Card from "../UI/Card";
+import ExpenseChart from "./ExpenseChart";
 import ExpenseFilter from "./ExpenseFilter";
 import ExpenseItem from "./ExpenseItem";
 
@@ -25,6 +26,7 @@ export default function Expenses(props) {
   return (
     <Card>
       <ExpenseFilter selected={filteredYear} onFilterChange={filterChangeHandler} />
+      <ExpenseChart expenses={filteredExpenses} />
       {filteredExpenses.length === 0 && <NoExpensesFount />}
       {filteredExpenses.length > 0 && filteredExpenses?.map((item) => <ExpenseItem key={item.id} title={item.title} date={item.date} amount={item.amount} />)}
     </Card>
