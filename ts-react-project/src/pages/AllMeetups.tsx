@@ -1,27 +1,37 @@
+import { useEffect, useState } from "react";
 import MeetupList from "../components/Meetup/MeetupList";
+import Meetup from "../models/meetup";
 
 const AllMeetups = () => {
-  const DUMMY_DATA = [
-    {
-      id: "m1",
-      title: "This is a first meetup",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-      address: "Meetupstreet 5, 12345 Meetup City",
-      description: "This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!",
-    },
-    {
-      id: "m2",
-      title: "This is a second meetup",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-      address: "Meetupstreet 5, 12345 Meetup City",
-      description: "This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!",
-    },
-  ];
-  console.log(DUMMY_DATA);
+  const [isLoading, setIsLoading] = useState(true);
+  const [meetups, setMeetups] = useState<Meetup[]>([]);
+
+  useEffect(() => {
+    fetch(process.env.REACT_APP_FIREBASE_URL + "/meetup.json")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let meetupData: Meetup[] = [];
+        for (const key in data) {
+          meetupData.push({
+            id: key,
+            ...data[key],
+          });
+        }
+        setMeetups(meetupData);
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
 
   return (
-    <div>
-      <MeetupList meetups={DUMMY_DATA} />
+    <div className=" flex flex-col items-center justify-center">
+      <div className=" text-2xl py-5 w-8/12 font-bold">All Meetups</div>
+      <MeetupList meetups={meetups} />
     </div>
   );
 };

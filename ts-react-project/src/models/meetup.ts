@@ -1,5 +1,5 @@
 interface Meetup {
-  id: string;
+  id?: string;
   title: string;
   image: string;
   address: string;
