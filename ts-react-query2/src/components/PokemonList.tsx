@@ -1,11 +1,13 @@
 import React from "react";
-import usePokemon from "../hooks/usePokemon";
+import usePokemonQuery from "../hooks/usePokemonQuery";
 import { ListResponse } from "../types";
+import { useNavigate } from "react-router-dom";
 
 const getImageUrl = (index: number): string => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`;
 
 const PokemonList: React.FC = () => {
-  const { isLoading, isError, data } = usePokemon<ListResponse>();
+  const { isLoading, isError, data } = usePokemonQuery<ListResponse>();
+  const navigate = useNavigate();
 
   const formatNumbering = (index: number): string => {
     return `#${String(index).padStart(3, "0")}`;
@@ -20,9 +22,13 @@ const PokemonList: React.FC = () => {
       ) : (
         <>
           {data?.data.results.map((pokemon, idx) => (
-            <div key={idx} className="border flex items-center rounded-lg shadow-2xl cursor-pointer hover:py-5 transition-all">
+            <div
+              onClick={() => navigate(`/${idx + 1}`)}
+              key={pokemon.name}
+              className="border flex items-center rounded-lg shadow-2xl cursor-pointer hover:py-5 transition-all"
+            >
               <div>
-                <img src={getImageUrl(idx + 1)} alt="" />
+                <img src={getImageUrl(idx + 1)} alt={pokemon.name} />
               </div>
               <div className="flex w-full justify-between px-5 items-center">
                 <div className="font-semibold text-xl">{pokemon.name}</div>
