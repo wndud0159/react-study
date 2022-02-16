@@ -4,6 +4,7 @@ import axios from "axios";
 import CharacterCounter from "./components/CharacterCounter";
 import TextInput from "./components/TextInput";
 import TodoList from "./components/TodoList";
+import CurrentUserInfo from "./components/CurrentUserInfo";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <TextInput />
       <CharacterCounter />
       <TodoList />
+      <CurrentUserInfo />
     </RecoilRoot>
   );
 }

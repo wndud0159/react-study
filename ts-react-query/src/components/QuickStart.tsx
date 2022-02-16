@@ -8,15 +8,15 @@ interface Todo {
 }
 
 const QuickStart: React.VFC = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const query = useQuery<Todo[], Error>("/todos", getTodos);
   console.log(`query: `, query);
 
   const mutation = useMutation(postTodos, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("/todos");
-    },
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries("/todos");
+    // },
   });
 
   if (query.isLoading) {

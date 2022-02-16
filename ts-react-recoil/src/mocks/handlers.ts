@@ -28,35 +28,12 @@ const todos = [
 ];
 
 export const handlers = [
-  rest.get("/api/projects", async (req, res, ctx) => {
-    const pageIndex = req.url.searchParams.get("page");
+  rest.get("/api/user-name", async (req, res, ctx) => {
+    const id = req.url.searchParams.get("id");
 
     return res(
       ctx.json({
-        projects: [
-          {
-            id: `1 ${pageIndex}`,
-            name: `Juyoung 1-${pageIndex}`,
-          },
-          {
-            id: `2 ${pageIndex}`,
-            name: `Juyoung 2-${pageIndex}`,
-          },
-          {
-            id: `3 ${pageIndex}`,
-            name: `Juyoung 3-${pageIndex}`,
-          },
-          {
-            id: `4 ${pageIndex}`,
-            name: `Juyoung 4-${pageIndex}`,
-          },
-          {
-            id: `5 ${pageIndex}`,
-            name: `Juyoung 5-${pageIndex}`,
-          },
-        ],
-        hasMore: pageIndex ? (+pageIndex < 4 ? pageIndex : undefined) : "",
-        nextCursor: pageIndex ? (+pageIndex < 4 ? +pageIndex + 1 : undefined) : "",
+        name: id === "1" ? "The one" : "The Others",
       })
     );
   }),
